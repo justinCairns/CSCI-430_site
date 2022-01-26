@@ -1,0 +1,34 @@
+<!doctype html>
+<html> 
+<head>
+    {{>head}}
+</head>
+<body>
+    {{>navbar}}
+
+    <form class="text-center">
+        <div class="container">
+            <label for="email">Email</label>
+            <br>
+            <input type="email" name="email" >
+            <br>
+            <label for="user">Username</label>
+            <br>
+            <input type="text" name="user" >
+            <br>
+            <label for="pass">Password</label>
+            <br>
+            <input type="password" name="pass" >
+            <br><br>
+            <a class="p-2 ms-auto btn btn-secondary btn-sm" href="login">Create Account</a>
+        </div>
+
+    </form>
+
+
+
+
+    {{>footer}}
+    {{>bootstrap-scripts}}
+</body>
+</html>
