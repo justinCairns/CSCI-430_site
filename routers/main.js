@@ -2,7 +2,15 @@ const express = require('express')
 const router = express.Router()
 
 router.get('/main', (req, res) => {
-    res.render('main')
+
+    const token = req.query.token
+
+    if(token === 'abc123') {
+        res.render('main', {token: token})    
+    }
+    else {
+        res.render('index')
+    }
 })
 
 module.exports = router

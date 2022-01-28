@@ -2,23 +2,25 @@
 <html> 
 <head>
     {{>head}}
+    <script defer src="/js/login.js"></script>
 </head>
 <body>
     {{>navbar}}
 
-    <form class="text-center">
+    <form class="text-center" id="loginForm">
         <div class="container">
             <label for="email">Email</label>
             <br>
-            <input type="email" name="email" >
+            <input id="email" type="email" name="email" >
             <br>
             <label for="pass">Password</label>
             <br>
-            <input type="password" name="pass" >
+            <input id="password" type="password" name="pass" >
             <br>
             <br>
-            <a class="p-2 ms-auto btn btn-secondary btn-sm" href="main">Log in</a>
+            <input type="submit" value="Submit">
             <p>not a member? <a href="create-account">create an account here.</a></p>
+            <p id="message1"></p>
         </div>
 
     </form>
