@@ -1,33 +1,42 @@
+
 const protocol = window.location.protocol
 const host = window.location.host
 
-const loginForm = document.querySelector('#loginForm')
-const emailInput = document.querySelector('#email')
-const passwordInput = document.querySelector('#password')
+const loginForm = document.querySelector("#loginForm")
+const emailInput = document.querySelector("#email")
+const passwordInput = document.querySelector("#password")
 
-loginForm.addEventListener('submit', async (e) => {
+loginForm.addEventListener("submit", async(e) => {
     e.preventDefault()
 
-    const email = emailInput.value;
-    const password = passwordInput.value;
+    const email = emailInput.value
+    const password = passwordInput.value
+    const data = { email, password }
 
-    const url = `${protocol}//${host}/login?email=${email}&password=${password}`
+    //const url = "http://localhost:3001/users/login"
+    const url = "https://justincairns-rest-api.herokuapp.com/users/login"
 
-    let response = await fetch(url)
+    const options = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+    }
 
-    if (response.ok) {
+    let response = await fetch(url, options)
+
+    if (response.status === 400) {
+        const message = document.querySelector("#message1")
+        message.textContent = "Invalid email or password."
+    } 
+    else if (response.status === 200) {
         const data = await response.json()
+        
+        localStorage.setItem("token", data.token)
+        //alert(data.token)
 
-        if (data.status === 401) {
-            const message = document.querySelector('#message1')
-            message.textContent = "Invalid email or password."
-        } 
-        else {
-            const newUrl = `${protocol}//${host}/main?token=${data.token}`
-            window.location.replace(newUrl);
-        }
-
-    } else {
-        console.log("HTTP-Error: " + response.status);
+        const newUrl = `${protocol}//${host}/main`
+        window.location.replace(newUrl)
     }
 })

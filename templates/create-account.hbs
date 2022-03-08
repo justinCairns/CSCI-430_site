@@ -2,27 +2,26 @@
 <html> 
 <head>
     {{>head}}
+    <script defer src="/js/create-account.js"></script>
 </head>
 <body>
     {{>navbar}}
 
-    <form class="text-center">
-        <div class="container">
-            <label for="email">Email</label>
-            <br>
-            <input type="email" name="email" >
-            <br>
-            <label for="user">Username</label>
-            <br>
-            <input type="text" name="user" >
-            <br>
-            <label for="pass">Password</label>
-            <br>
-            <input type="password" name="pass" >
-            <br><br>
-            <a class="p-2 ms-auto btn btn-secondary btn-sm" href="login">Create Account</a>
-        </div>
-
+    <form id="createAccountForm" class="text-center">
+        <label for="email">Email</label>
+        <br>
+        <input id="email" type="email" name="email" >
+        <br>
+        <label for="user">Username</label>
+        <br>
+        <input id="username" type="text" name="user" >
+        <br>
+        <label for="pass">Password</label>
+        <br>
+        <input id="password" type="password" name="pass" >
+        <br><br>
+         <input type="submit" value="Submit">
+        <p id="message" class="message"></p>
     </form>
 
 
