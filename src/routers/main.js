@@ -3,14 +3,8 @@ const router = express.Router()
 
 router.get('/main', (req, res) => {
 
-    const token = req.query.token
+    res.render('main')    
 
-    if(token === 'abc123') {
-        res.render('main', {token: token})    
-    }
-    else {
-        res.render('index')
-    }
 })
 
 module.exports = router

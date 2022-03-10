@@ -35,7 +35,7 @@ createAccountForm.addEventListener('submit', async(e) => {
     } 
     else if (response.status === 201) {
         localStorage.setItem("token", data.token)
-        alert(data.token)
+        //alert(data.token)
 
         const newUrl = `${protocol}//${host}/main`
         window.location.replace(newUrl)

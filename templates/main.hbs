@@ -2,12 +2,19 @@
 <html> 
 <head>
     {{>head}}
+    <script defer src="/js/main.js"></script>
 </head>
 <body>
    {{>navbar}}
 
-    <h1 class="text-center">access token: {{token}} <br> Welcome to <br> my CSCI-430 <br> webpage!</h1>
+    <h1 class="text-center"> Account Options:</h1>
+    <ul class="text-center list group">
+        <div id="displayAccountItem" class="list-group-item list-group-item-action">Account Info</div>
+        <div id="delete" class="list-group-item list-group-item-action">Delete Account</div>
+        <div id="logOut" class="list-group-item list-group-item-action">Log Out</div>
+    </ul>
 
+    <p id="contentArea"></p>
 
 
     {{>footer}}
