@@ -70,9 +70,9 @@ modifyAccountModalSaveButton.addEventListener("click", async(e) => {
         console.log("HTTP-Error: " + response.status)
     }
 
-    const modal = document.querySelector("#modifyAccountModal")
-    bootstrap.Modal.getInstance(modal).hide()
-
+    ///const modal = document.querySelector("#modifyAccountModal")
+    //bootstrap.Modal.getInstance(modal).hide()
+    $('#modifyAccountModal').modal('hide')
     const form = document.querySelector("#modifyAccountForm").reset()
 })
 
