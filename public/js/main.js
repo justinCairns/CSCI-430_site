@@ -50,7 +50,7 @@ modifyAccountModalSaveButton.addEventListener("click", async(e) => {
     const name = nameInput.value
     const password = passwordInput.value
     const requestData = {...name && { name }, ...password && { password } }
-    //console.log(requestData)
+    console.log(requestData)
 
     const options = {
         method: "PATCH",

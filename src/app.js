@@ -9,6 +9,7 @@ const loginRouter = require('./routers/login')
 const createAccountRouter = require('./routers/create-account') 
 const mainRouter = require('./routers/main') 
 const _404Router = require('./routers/404')
+const tasksRouter = require('./routers/tasks')
 
 const app = express()
 
@@ -28,8 +29,10 @@ app.use(assignmentsRouter)
 app.use(resourcesRouter)
 app.use(loginRouter)
 app.use(createAccountRouter)
-app.use(mainRouter)    
+app.use(mainRouter)
+app.use(tasksRouter)    
 app.use(_404Router) 
+
 
 const port = process.env.PORT || 3000
 

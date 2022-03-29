@@ -5,21 +5,25 @@
     <script defer src="/js/main.js"></script>
 </head>
 <body>
-    {{>modify_account_modal}}
-    {{>navbar}}
+    <div class="page-container">
+        {{>modify_account_modal}}
+        {{>navbar}}
 
-    <h1 class="text-center"> Account Options:</h1>
-    <ul class="text-center list group">
-        <div id="displayAccountItem" class="list-group-item list-group-item-action">Account Info</div>
-        <div class="list-group-item list-group-item-action" data-toggle="modal" data-target="#modifyAccountModal">Modify Account</div>
-        <div id="delete" class="list-group-item list-group-item-action">Delete Account</div>
-        <div id="logOut" class="list-group-item list-group-item-action">Log Out</div>
-    </ul>
+        <div class="content-wrap">
+            <h1 class="text-center"> Account Options:</h1>
+            <ul class="text-center list-group">
+                <div id="displayAccountItem" class="list-group-item list-group-item-action">Account Info</div>
+                <div class="list-group-item list-group-item-action" data-toggle="modal" data-target="#modifyAccountModal">Modify Account</div>
+                <div id="delete" class="list-group-item list-group-item-action">Delete Account</div>
+                <div id="logOut" class="list-group-item list-group-item-action">Log Out</div>
+                <a class="list-group-item list-group-item-action" href="tasks">View Tasks</a>
+            </ul>
 
-    <p id="contentArea"></p>
+            <p id="contentArea"></p>
+        </div>
 
-
-    {{>footer}}
-    {{>bootstrap_scripts}}
+        {{>footer}}
+        {{>bootstrap_scripts}}
+    </div>
 </body>
 </html>
