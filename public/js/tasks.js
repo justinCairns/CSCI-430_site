@@ -136,15 +136,8 @@ modifyTaskModalSaveButton.addEventListener("click", async(e) => {
     const descriptionInput = document.querySelector("#modifyDescriptionInput")
     const completedInput = document.querySelector("#modifyCompleted")
 
-    let _id = 0
+    let  _id = data[taskPointer]._id
 
-    if(taskPointer == 0){
-        let newPointer = data.length-1
-        _id = data[newPointer]._id    
-    }
-    else{
-        _id = data[taskPointer-1]._id
-    }
     const title = titleInput.value
     const description = descriptionInput.value
     const completed = completedInput.checked
@@ -175,15 +168,8 @@ const deleteTaskModalButton = document.querySelector("#deleteTaskModalButton")
 deleteTaskModalButton.addEventListener("click", async(e) => {
     e.preventDefault()
 
-    let _id = 0
-
-    if(taskPointer == 0){
-        let newPointer = data.length-1
-        _id = data[newPointer]._id    
-    }
-    else{
-        _id = data[taskPointer-1]._id
-    }
+    let _id = data[taskPointer]._id
+ 
 
     const requestData = {..._id && { _id } }
     console.log(requestData)
