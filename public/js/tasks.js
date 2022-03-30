@@ -1,19 +1,20 @@
 const protocol = window.location.protocol
 const host = window.location.host
 
-const url = 'https://justincairns-rest-api.herokuapp.com/tasks'
+let url = 'https://justincairns-rest-api.herokuapp.com/tasks'
+const urlSorted = 'https://justincairns-rest-api.herokuapp.com/tasks?completed=false'
+const urlUnsorted = 'https://justincairns-rest-api.herokuapp.com/tasks'
 const token = localStorage.getItem("token")
 
 data = []
 taskPointer = 0
 
 window.onload = function(){
-    displayTask()
+    displayTask(taskPointer)
 }
 
 //Display Task
-async function displayTask(){
-
+async function displayTask(pointer){
     const options = {
         method: "GET",
         headers: {
@@ -26,29 +27,33 @@ async function displayTask(){
     if(response.ok){
         if(response.status === 200){
             data = await response.json()
-            
+            if(pointer >= data.length){
+                taskPointer = 0;
+                pointer = taskPointer
+            }
             const taskNumber = document.querySelector("#taskNumber")
-            taskNumber.innerHTML = 'Tasks: ' + (taskPointer+1) + '/' + data.length
+            taskNumber.innerHTML = 'Tasks: ' + (pointer+1) + '/' + data.length
+
 
             const contentArea = document.querySelector("#contentArea")
             contentArea.innerHTML = `<div class="card mx-auto" style="width: 18rem;">
                                         <div class="card-body text-center">
-                                            <h5 id="title" class="card-title text-center">Task: ${data[taskPointer].title}</h5>
+                                            <h5 id="title" class="card-title text-center">Task: ${data[pointer].title}</h5>
                                             <ul class="list-group list-group-flush text-center">
-                                                <li id="description" class="list-group-item">Description: ${data[taskPointer].description}</li>
-                                                <li id="completed" class="list-group-item">Completed: ${data[taskPointer].completed}</li>
+                                                <li id="description" class="list-group-item">Description: ${data[pointer].description}</li>
+                                                <li id="completed" class="list-group-item">Completed: ${data[pointer].completed}</li>
                                             </ul>
                                             <div class="btn btn-primary" data-toggle="modal" data-target="#modifyTaskModal"> Modify</div>
                                             <div class="btn btn-danger" data-toggle="modal" data-target="#deleteTaskModal"> Delete</div>
                                         </div>
                                     </div>
                                     <br>`
-            if(taskPointer < (data.length-1)){
+           /* if(taskPointer < (data.length-1)){
             taskPointer++;
             }
             else{
                 taskPointer = 0
-            }
+            }*/
       }
     }
 
@@ -57,7 +62,34 @@ async function displayTask(){
 }
 
 const nextTask = document.querySelector("#next-btn")
-nextTask.addEventListener("click", displayTask)
+nextTask.addEventListener("click", async(e) =>{
+    if(taskPointer < (data.length-1)){
+        taskPointer++;
+        }
+        else{
+            taskPointer = 0
+        }
+
+    displayTask(taskPointer)
+})
+
+//Sort Tasks
+const uncompletedFilter = document.querySelector("#un-filter-btn")
+uncompletedFilter.addEventListener("click", async(e) =>{
+    e.preventDefault()
+    
+    url = urlSorted
+    displayTask(taskPointer)
+})
+
+const noFilter = document.querySelector("#filter-btn")
+noFilter.addEventListener("click", async(e) =>{
+    e.preventDefault()
+    
+    url = urlUnsorted
+    displayTask(taskPointer)
+})
+
 
 //Create Task
 const createTaskModalSaveButton = document.querySelector("#createTaskModalSaveButton")
@@ -94,6 +126,7 @@ createTaskModalSaveButton.addEventListener("click", async(e) => {
     }
 
 })
+
 //Modify Task
 const modifyTaskModalSaveButton = document.querySelector("#modifyTaskModalSaveButton")
 modifyTaskModalSaveButton.addEventListener("click", async(e) => {
@@ -138,7 +171,6 @@ modifyTaskModalSaveButton.addEventListener("click", async(e) => {
 })
     
 //Delete Task
-
 const deleteTaskModalButton = document.querySelector("#deleteTaskModalButton")
 deleteTaskModalButton.addEventListener("click", async(e) => {
     e.preventDefault()
@@ -175,5 +207,3 @@ deleteTaskModalButton.addEventListener("click", async(e) => {
         console.log("HTTP-Error: " + response.status)
     }
 })
-
-//New Task
