@@ -38,8 +38,8 @@ async function displayTask(){
                                                 <li id="description" class="list-group-item">Description: ${data[taskPointer].description}</li>
                                                 <li id="completed" class="list-group-item">Completed: ${data[taskPointer].completed}</li>
                                             </ul>
-                                            <div class="btn btn-primary"> Modify</div>
-                                            <div class="delete btn btn-danger" onclick="deleteTask(this.id)"> Delete</div>
+                                            <div class="btn btn-primary" data-toggle="modal" data-target="#modifyTaskModal"> Modify</div>
+                                            <div class="btn btn-danger" data-toggle="modal" data-target="#deleteTaskModal"> Delete</div>
                                         </div>
                                     </div>
                                     <br>`
@@ -49,7 +49,6 @@ async function displayTask(){
             else{
                 taskPointer = 0
             }
-            console.log(taskPointer)
       }
     }
 
@@ -60,31 +59,121 @@ async function displayTask(){
 const nextTask = document.querySelector("#next-btn")
 nextTask.addEventListener("click", displayTask)
 
+//Create Task
+const createTaskModalSaveButton = document.querySelector("#createTaskModalSaveButton")
+createTaskModalSaveButton.addEventListener("click", async(e) => {
+    e.preventDefault()
+
+    const titleInput = document.querySelector("#titleInput")
+    const descriptionInput = document.querySelector("#descriptionInput")
+    const completedInput = document.querySelector("#completed")
+   
+    const title = titleInput.value
+    const description = descriptionInput.value
+    const completed = completedInput.checked
+
+    let newTask = {title, description, completed}
+
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(newTask)
+    }
+
+    let response = await fetch(url, options)
+    newTask = await response.json()
+
+    if (response.status === 400) {
+        alert("name left blank")
+    } 
+    else if (response.status === 201) {
+        location.reload()
+    }
+
+})
 //Modify Task
+const modifyTaskModalSaveButton = document.querySelector("#modifyTaskModalSaveButton")
+modifyTaskModalSaveButton.addEventListener("click", async(e) => {
+    e.preventDefault()
+
+    const titleInput = document.querySelector("#modifyTitleInput")
+    const descriptionInput = document.querySelector("#modifyDescriptionInput")
+    const completedInput = document.querySelector("#modifyCompleted")
+
+    let _id = 0
+
+    if(taskPointer == 0){
+        let newPointer = data.length-1
+        _id = data[newPointer]._id    
+    }
+    else{
+        _id = data[taskPointer-1]._id
+    }
+    const title = titleInput.value
+    const description = descriptionInput.value
+    const completed = completedInput.checked
+
+    const requestData = {..._id && { _id }, ...title && { title }, ...description && { description }, ...completed && { completed } }
+
+    const options = {
+        method: "PATCH",
+        headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestData),
+    }
+
+    let response = await fetch(url, options)
+
+    if (response.status === 200) {
+        alert("task modified successfully")
+        location.reload()   
+    } else {
+        console.log("HTTP-Error: " + response.status)
+    }
+})
     
 //Delete Task
 
-async function deleteTask(clicked_id){
+const deleteTaskModalButton = document.querySelector("#deleteTaskModalButton")
+deleteTaskModalButton.addEventListener("click", async(e) => {
+    e.preventDefault()
 
-  /*  if(confirm("press OK to delete this task.")){
-        const options = {
-            method: "DELETE",
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify(requestData),
+    let _id = 0
+
+    if(taskPointer == 0){
+        let newPointer = data.length-1
+        _id = data[newPointer]._id    
+    }
+    else{
+        _id = data[taskPointer-1]._id
+    }
+
+    const requestData = {..._id && { _id } }
+    console.log(requestData)
+
+    const options = {
+        method: "DELETE",
+        headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestData),
+    }
+
+    let response = await fetch(url, options)
+
+    if (response.ok) {
+        if (response.status === 200) {
+            location.reload()
         }
+    } else {
+        console.log("HTTP-Error: " + response.status)
+    }
+})
 
-        let response = await fetch(url, options)
-
-        if (response.ok) {
-            if (response.status === 200) {
-                console.log("success")
-            }
-        } else {
-            console.log("HTTP-Error: " + response.status)
-        }
-    }*/
-
-}
 //New Task

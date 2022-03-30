@@ -6,12 +6,15 @@
 </head>
 <body>
     <div class="page-container">
+        {{>create_task_modal}}
+        {{>modify_task_modal}}
+        {{>delete_task_modal}}
         {{>navbar}}
         <div class="content-wrap">
             <h1 id="taskNumber" class="text-center">Tasks</h1>
             <div id="contentArea"></div>
             <div class="text-center">
-                <button type="button" class="btn btn-dark">Create New Task</button>
+                <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#createTaskModal">Create New Task</button>
                 <button type="button" id="next-btn" class="btn btn-success">Next</button>
             </div>
         </div>
