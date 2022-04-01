@@ -2,8 +2,7 @@ const protocol = window.location.protocol
 const host = window.location.host
 
 let url = 'https://justincairns-rest-api.herokuapp.com/tasks'
-const urlSorted = 'https://justincairns-rest-api.herokuapp.com/tasks?completed=false'
-const urlUnsorted = 'https://justincairns-rest-api.herokuapp.com/tasks'
+
 const token = localStorage.getItem("token")
 
 data = []
@@ -73,20 +72,50 @@ nextTask.addEventListener("click", async(e) =>{
     displayTask(taskPointer)
 })
 
-//Sort Tasks
-const uncompletedFilter = document.querySelector("#un-filter-btn")
-uncompletedFilter.addEventListener("click", async(e) =>{
+//Filter Tasks
+const allFilter = document.querySelector("#filter-all-btn")
+allFilter.addEventListener("click", async(e) =>{
     e.preventDefault()
     
-    url = urlSorted
+    let urlAll = 'https://justincairns-rest-api.herokuapp.com/tasks'
+    url = urlAll
     displayTask(taskPointer)
 })
 
-const noFilter = document.querySelector("#filter-btn")
-noFilter.addEventListener("click", async(e) =>{
+const uncompletedFilter = document.querySelector("#filter-un-btn")
+uncompletedFilter.addEventListener("click", async(e) =>{
     e.preventDefault()
     
-    url = urlUnsorted
+    let urlFalse = 'https://justincairns-rest-api.herokuapp.com/tasks?completed=false'
+    url = urlFalse
+    displayTask(taskPointer)
+})
+
+const completedFilter = document.querySelector("#filter-com-btn")
+completedFilter.addEventListener("click", async(e) =>{
+    e.preventDefault()
+
+    let urlTrue = 'https://justincairns-rest-api.herokuapp.com/tasks?completed=true'
+    url = urlTrue
+    displayTask(taskPointer)
+})
+
+//Sort Tasks
+const recentSort = document.querySelector("#sort-rec-btn")
+recentSort.addEventListener("click", async(e) =>{
+    e.preventDefault()
+
+    let urlRecent = 'https://justincairns-rest-api.herokuapp.com/tasks?sortBy=updatedAt:desc'
+    url = urlRecent
+    displayTask(taskPointer)
+})
+
+const oldSort = document.querySelector("#sort-old-btn")
+oldSort.addEventListener("click", async(e) =>{
+    e.preventDefault()
+
+    let urlOld = 'https://justincairns-rest-api.herokuapp.com/tasks?sortBy=updatedAt:asc'
+    url = urlOld
     displayTask(taskPointer)
 })
 

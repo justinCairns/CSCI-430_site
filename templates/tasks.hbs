@@ -13,8 +13,18 @@
         <div class="content-wrap">
             <h1 id="taskNumber" class="text-center">Tasks</h1>
             <div class="text-center">
-                <button type="button" id="un-filter-btn" class="btn btn-info">Uncompleted Tasks</button>
-                <button type="button" id="filter-btn" class="btn btn-info">All Tasks</button>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        filters
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a id="filter-all-btn"class="dropdown-item" href="#">Show all</a>
+                        <a id="filter-com-btn" class="dropdown-item" href="#">Show completed tasks</a>
+                        <a id="filter-un-btn" class="dropdown-item" href="#">Show uncompleted tasks</a>
+                        <a id="sort-rec-btn"class="dropdown-item" href="#">Sort by most recent</a>
+                        <a id="sort-old-btn" class="dropdown-item" href="#">Sort by oldest</a>
+                    </div>
+                </div>            
             </div>
             <br>
             <div id="contentArea"></div>
