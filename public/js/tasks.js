@@ -30,6 +30,9 @@ async function displayTask(pointer){
                 taskPointer = 0;
                 pointer = taskPointer
             }
+            if(data.length == 0){
+                pointer = -1
+            }
             const taskNumber = document.querySelector("#taskNumber")
             taskNumber.innerHTML = 'Tasks: ' + (pointer+1) + '/' + data.length
 
